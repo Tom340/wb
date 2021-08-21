@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>ホワイトボード</title>
+  <style>
+  </style>
+</head>
+<body style="background-color: white;">
+
+<script>
+var winwidth = window.innerWidth;
+var winheight = window.innerHeight;
+document.write("<canvas id='canvas' width='" + winwidth + "' height='" + winheight + "'></canvas>");
+var mX=-1;
+var mY=-1;
+
+function move(e)
+{
+  if (mX < 0 && mY < 0) {
+    mX = e.pageX;
+    mY = e.pageY;
+  }
+  context.beginPath();
+  context.moveTo(mX,mY);
+  context.lineTo(e.pageX,e.pageY);
+  context.closePath();
+  context.stroke();
+  mX = e.pageX;
+  mY = e.pageY;
+}
+
+function down(e)
+{
+  document.onmousemove = move;
+}
+
+function up(e)
+{
+  document.onmousemove = null;
+  mX = -1;
+  mY = -1;
+}
+
+function touchmove(e)
+{
+  e.preventDefault();
+  move(e.changedTouches[0]);
+}
+var canvas = document.getElementById("canvas");
+var context = canvas.getContext("2d");
+
+window.onmousedown = down;
+window.onmouseup = up;
+document.ontouchmove = touchmove;
+document.ontouchend = up;
+</script>
+</body>
+</html>
+<!---
+TODO
+・画像の共有
+・部屋
+・招待
+・パーツを増やす
+・図形の移動
+--->
+

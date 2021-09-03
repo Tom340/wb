@@ -1,3 +1,3 @@
 <?php
-include('wb.html');
+include('index.html');
 ?>
